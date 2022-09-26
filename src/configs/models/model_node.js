@@ -27,7 +27,7 @@ const nodeSchema = new mongoose.Schema({
     },
 
     reactFlow: {
-        type: {},
+        type: any,
         required: true
     }
 });

@@ -18,7 +18,7 @@ const edgeSchema = new mongoose.Schema({
     },
 
     reactFlow: {
-        type: {},
+        type: any,
         required: true
     }
 });
