@@ -2,23 +2,23 @@ const mongoose = require('mongoose')
 
 const edgeSchema = new mongoose.Schema({
 
+    type: {
+        type: String,
+        required: true
+    },
+
     title: {
         type: String,
         required: true
     },
 
-    kind: {
-        type: String,
+    data: {
+        type: {},
         required: true
     },
 
-    head: {
-        type: String,
-        required: true
-    },
-
-    tail: {
-        type: String,
+    reactFlow: {
+        type: {},
         required: true
     }
 });

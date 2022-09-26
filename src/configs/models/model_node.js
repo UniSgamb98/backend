@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const nodeSchema = new mongoose.Schema({
-    difficulty: {
-        type: Number,
+    type: {
+        type: String,
         required: true
     },
 
@@ -16,25 +16,18 @@ const nodeSchema = new mongoose.Schema({
         required: true
     },
 
-    kind: {
-        type: String,
+    difficulty: {
+        type: Number,
         required: true
     },
 
-    /*
-    prerequisites: {
-        type: String,
-        required: false
-    },
-
-    effect: {
-        type: String,
-        required: false
-    },
-    */
-
     data: {
-        type: String,
+        type: {},
+        required: true
+    },
+
+    reactFlow: {
+        type: {},
         required: true
     }
 });
