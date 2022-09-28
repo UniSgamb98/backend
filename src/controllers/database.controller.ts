@@ -6,15 +6,16 @@ const Flow = require('../configs/models/model_flow');
 export async function saveFlow(req:Request, res:Response){
 
     const flow = new Flow({
-        title:          "test flow",
-        description:    "req.body.description",
+        title:          'test flow',
+        description:    'req.body.description',
         nodes: [{   type: 'multipleChoiceQuestionNode',
                     title: 'Node 1',
                     description: 'Some description',
                     difficulty: 1,
+                    /*
                     data: 
                     { 
-                        question: "Test", 
+                        question: 'Test', 
                         isChoiceCorrect: [false], 
                         choices: ["Choice test"] 
                     },
@@ -25,11 +26,13 @@ export async function saveFlow(req:Request, res:Response){
                         position: { x: 250, y: 0 },
                         data: { label: 'Multiple Choice Question' },
                     }
+                    */
                 },
                 {   type: 'multipleChoiceQuestionNode',
                     title: 'Node 2',
                     description: 'Some description',
                     difficulty: 3,
+                    /*
                     data: 
                     { 
                         question: "Test", 
@@ -43,6 +46,7 @@ export async function saveFlow(req:Request, res:Response){
                         position: { x: 250, y: 200 },
                         data: { label: 'Multiple Choice Question' },
                     }
+                    */
                 }],
         edges: []
         
