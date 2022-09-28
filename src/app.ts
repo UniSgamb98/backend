@@ -23,7 +23,6 @@ app.use(cors());
 app.set("port", process.env.PORT || 3000);
 app.set("env", process.env.NODE_ENV || "development");
 
-
 app.use(bodyParser.json());
 app.use(loggerMiddleware)
 

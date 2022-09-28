@@ -1,11 +1,7 @@
 const mongoose = require('mongoose');
-/*const Node = require('../models/model_node');
-const Edge = require('../models/model_edge');
-const Flow = require('../models/model_flow');*/
 var dbName = process.env.DB_NAME;
 var dbPassword = process.env.DB_PASSWORD;
-var dbURI = `mongodb+srv://AngeloC:${dbPassword}@cluster0.p6lewmw.mongodb.net/?retryWrites=true&w=majority`;
-//  mongodb+srv://AngeloC:asd123@cluster0.p6lewmw.mongodb.net/?retryWrites=true&w=majority
+var dbURI = `mongodb+srv://AngeloC:${dbPassword}@cluster0.p6lewmw.mongodb.net/${dbName}`;
 
 const helper = {
     connect : async () => {

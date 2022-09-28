@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Node = require('./model_node').Schema;
-const Edge = require('./model_edge').Schema;
+//const Edge = require('./model_edge').Schema;
 
 
 const flowSchema = new mongoose.Schema({
@@ -14,9 +14,9 @@ const flowSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    nodes: [Node],
+    //nodes: [Node],
 
-    edges: [Edge]
+    //edges: [Edge]
 });
 
 const Flow = mongoose.model('Flow', flowSchema);     //Blog e Blog deve essere scritto uguale

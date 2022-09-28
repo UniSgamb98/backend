@@ -20,7 +20,7 @@ const nodeSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-
+/*
     data: {
         type: {},
        // required: true
@@ -29,7 +29,7 @@ const nodeSchema = new mongoose.Schema({
     reactFlow: {
         type: {},
        // required: true
-    }
+    }*/
 });
 
 const Node = mongoose.model('Node', nodeSchema);     //Blog e Blog deve essere scritto uguale

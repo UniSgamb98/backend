@@ -11,10 +11,8 @@ if (app.get("env") === "development") {
     app.use(errorHandler());
 }
 
-
-    // Connect to db
+// Connect to db
 mongoHelper.connect();
-
 
 /**
  * Start Express server.
