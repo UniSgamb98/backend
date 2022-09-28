@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const nodeSchema = new mongoose.Schema({
+const NodeSchema = new mongoose.Schema({ 
     type: {
         type: String,
         required: true
@@ -32,5 +32,4 @@ const nodeSchema = new mongoose.Schema({
     }*/
 });
 
-const Node = mongoose.model('Node', nodeSchema);     //Blog e Blog deve essere scritto uguale
-module.exports = Node;
+module.exports = mongoose.model('Node', NodeSchema);
