@@ -23,12 +23,12 @@ const nodeSchema = new mongoose.Schema({
 
     data: {
         type: {},
-        required: true
+       // required: true
     },
 
     reactFlow: {
-        type: any,
-        required: true
+        type: {},
+       // required: true
     }
 });
 
