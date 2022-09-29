@@ -4,16 +4,26 @@ import { collections } from "../configs/services/database.service";
 //const Node = require('../configs/models/model_node');
 //const Edge = require('../configs/models/model_edge');
 import Flow from "../configs/models/model_flow";
-/*
-export async function getFlowById(req:Request, res:Response){
+
+
+
+export async function getFlowById(req:Request< { id: string }>, res: Response){
+    console.log("whack")
+    const id = req.params.id;
+
+
     try {
-        const flows = (await collections.flows.find({}).toArray()) as Flow[];
- 
-         res.status(200).send(flows);
-     } catch (error) {
-         res.status(500).send(error.message);
-     }
-}*/
+        
+        const query = { _id: new ObjectId(id) };
+        const game = (await collections.flows.findOne(query)) as Flow;
+
+        if (game) {
+            res.status(200).send(game);
+        }
+    } catch (error) {
+        res.status(404).send(`Unable to find matching document with id: ${req.params.id}`);
+    }
+}
 
 export async function saveFlow(req:Request, res:Response){
 
