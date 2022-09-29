@@ -1,7 +1,6 @@
 import errorHandler from "errorhandler";
 import app from "./app";
-
-const mongoHelper = require('./configs/mongoHelper/mongoHelper');
+import { connectToDatabase } from "./configs/services/database.service"
 
 /**
  * Error Handler. Provides full stack
@@ -12,7 +11,7 @@ if (app.get("env") === "development") {
 }
 
 // Connect to db
-mongoHelper.connect();
+connectToDatabase();
 
 /**
  * Start Express server.
