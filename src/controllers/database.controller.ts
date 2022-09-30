@@ -1,35 +1,40 @@
-import { Request, Response } from "express";
-import { ObjectId } from "mongodb";
-import { collections } from "../configs/services/database.service";
-//const Node = require('../configs/models/model_node');
-//const Edge = require('../configs/models/model_edge');
-import Flow from "../configs/models/model_flow";
+import { NextFunction, Request, Response } from 'express';
+import mongoose from 'mongoose';
+import Fragment from '../models/fragment';
 
+const createFragment = (req: Request, res: Response, next: NextFunction) => {
+    const { title } = req.body;
 
+    const fragment = new Fragment({
+        title
+    });
 
-export async function getFlowById(req:Request< { id: string }>, res: Response){
-    console.log("whack")
-    const id = req.params.id;
+    return fragment
+        .save()
+        .then((fragment) => res.status(201).json({ fragment }))
+        .catch((err) => res.status(500).json({ err }));
+}
+const getFragmentById = (req: Request, res: Response, next: NextFunction) => {
+    const fragmentId = req.params.fragmentId;
 
-
-    try {
-        
-        const query = { _id: new ObjectId(id) };
-        const game = (await collections.flows.findOne(query)) as Flow;
-
-        if (game) {
-            res.status(200).send(game);
-        }
-    } catch (error) {
-        res.status(404).send(`Unable to find matching document with id: ${req.params.id}`);
-    }
+    return Fragment.findById(fragmentId)
+        .then((fragment) => (fragment ? res.status(200).json({ fragment }) : res.
+        status(404).json({ message: 'Not Found'})))
+        .catch((error) => res.status(500).json({ error }));
 }
 
+const getAllFragments = (req: Request, res: Response) => {
+    return Fragment.find()
+        .then((fragments) =>  res.status(200).json({ fragments }))
+        .catch((error) => res.status(500).json({ error }));
+}
+
+/*
 export async function saveFlow(req:Request, res:Response){
 
     console.log("ciao");
 
-/*
+
     const flow = new Flow({
         title:          'test flow',
         description:    'req.body.description',
@@ -84,5 +89,10 @@ export async function saveFlow(req:Request, res:Response){
     catch(err){
         res.json({ message: err});
     }
-    */
-}
+    
+}*/
+
+export default { 
+    getFragmentById,
+    getAllFragments,
+    createFragment };

@@ -1,6 +1,7 @@
-import errorHandler from "errorhandler";
-import app from "./app";
-import { connectToDatabase } from "./configs/services/database.service"
+import errorHandler from 'errorhandler';
+import mongoose from 'mongoose';
+import app from './app';
+import { config } from './configs/configs'
 
 /**
  * Error Handler. Provides full stack
@@ -10,8 +11,14 @@ if (app.get("env") === "development") {
     app.use(errorHandler());
 }
 
-// Connect to db
-connectToDatabase();
+mongoose.
+    connect(config.mongo.url, { retryWrites: true, w: 'majority' })
+    .then(() => {
+        console.log('connected to Database');
+    })
+    .catch((err) => {
+        console.log(err);
+    });
 
 /**
  * Start Express server.

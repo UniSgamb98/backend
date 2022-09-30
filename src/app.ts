@@ -1,4 +1,4 @@
-import "./configs/dotenv.configs";
+import "./configs/configs";
 import express from 'express';
 import bodyParser from "body-parser";
 import { loggerMiddleware } from "./middlewares/logger.middleware";
@@ -23,6 +23,7 @@ app.use(cors());
 app.set("port", process.env.PORT || 3000);
 app.set("env", process.env.NODE_ENV || "development");
 
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(loggerMiddleware)
 
