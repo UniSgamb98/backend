@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import Fragment from '../models/fragment';
 
-const createFragment = (req: Request, res: Response, next: NextFunction) => {
+const createFragment = (req: Request, res: Response) => {
     const { title } = req.body;
 
     const fragment = new Fragment({
@@ -13,21 +13,50 @@ const createFragment = (req: Request, res: Response, next: NextFunction) => {
         .save()
         .then((fragment) => res.status(201).json({ fragment }))
         .catch((err) => res.status(500).json({ err }));
-}
-const getFragmentById = (req: Request, res: Response, next: NextFunction) => {
+};
+
+const getFragmentById = (req: Request, res: Response) => {
     const fragmentId = req.params.fragmentId;
 
     return Fragment.findById(fragmentId)
         .then((fragment) => (fragment ? res.status(200).json({ fragment }) : res.
         status(404).json({ message: 'Not Found'})))
         .catch((error) => res.status(500).json({ error }));
-}
+};
 
 const getAllFragments = (req: Request, res: Response) => {
     return Fragment.find()
         .then((fragments) =>  res.status(200).json({ fragments }))
         .catch((error) => res.status(500).json({ error }));
-}
+};
+
+const editFragment = (req: Request, res: Response) => {
+    const fragmentId = req.params.fragmentId;
+
+    return Fragment.findById(fragmentId)
+        .then((fragment) => {
+            if (fragment) {
+                fragment.set(req.body);
+
+                return fragment
+                    .save()
+                    .then((fragment) => res.status(201).json({ fragment }))
+                    .catch((err) => res.status(500).json({ err }));
+            } else {
+                res.status(404).json({ message: 'Not Found' });
+            }
+        })
+        .catch((err) => res.status(500).json({ err }));
+};
+
+const deleteFragment = (req: Request, res: Response) => {
+    const fragmentId = req.params.fragmentId;
+
+    return Fragment.findByIdAndDelete(fragmentId)
+        .then((fragment) => (fragment ? res.status(201).json({ message: 'Deleted fragment with id', fragmentId }) : res.status(404)
+        .json({ message: 'Fragment not found' })))
+        .catch((err) => res.status(500).json({ err }));
+};
 
 /*
 export async function saveFlow(req:Request, res:Response){
@@ -92,7 +121,14 @@ export async function saveFlow(req:Request, res:Response){
     
 }*/
 
-export default { 
+export default 
+{ 
+    createFragment,
+
     getFragmentById,
     getAllFragments,
-    createFragment };
+
+    editFragment,
+
+    deleteFragment 
+};
