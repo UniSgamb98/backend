@@ -1,12 +1,17 @@
-import { NextFunction, Request, Response } from 'express';
-import mongoose from 'mongoose';
+import { Request, Response } from 'express';
 import Fragment from '../models/fragment';
+import Node from '../models/node';
+import Edge from '../models/edge';
 
+// FRAGMENT FUNCTIONS
 const createFragment = (req: Request, res: Response) => {
-    const { title } = req.body;
+    const { title, description, nodes, edges } = req.body;
 
     const fragment = new Fragment({
-        title
+        title,
+        description,
+        nodes,
+        //edges
     });
 
     return fragment
@@ -58,72 +63,47 @@ const deleteFragment = (req: Request, res: Response) => {
         .catch((err) => res.status(500).json({ err }));
 };
 
-/*
-export async function saveFlow(req:Request, res:Response){
+//NODES FUNCTIONS
+const createNode = (req: Request, res: Response) => {
+    const { type, title, description, difficulty, data, reactflow} = req.body;
 
-    console.log("ciao");
-
-
-    const flow = new Flow({
-        title:          'test flow',
-        description:    'req.body.description',
-        /*nodes: [{   type: 'multipleChoiceQuestionNode',
-                    title: 'Node 1',
-                    description: 'Some description',
-                    difficulty: 1,
-                    /*
-                    data: 
-                    { 
-                        question: 'Test', 
-                        isChoiceCorrect: [false], 
-                        choices: ["Choice test"] 
-                    },
-                    reactFlow: 
-                    {
-                        id: '1',
-                        type: "multipleChoiceQuestionNode",
-                        position: { x: 250, y: 0 },
-                        data: { label: 'Multiple Choice Question' },
-                    }
-                    
-                },
-                {   type: 'multipleChoiceQuestionNode',
-                    title: 'Node 2',
-                    description: 'Some description',
-                    difficulty: 3,
-                    /*
-                    data: 
-                    { 
-                        question: "Test", 
-                        isChoiceCorrect: [false], 
-                        choices: ["Choice test"] 
-                    },
-                    reactFlow: 
-                    {
-                        id: '2',
-                        type: "multipleChoiceQuestionNode",
-                        position: { x: 250, y: 200 },
-                        data: { label: 'Multiple Choice Question' },
-                    }
-                    
-                }],
-        edges: []
-        
+    const node = new Node({
+        type,
+        title,
+        description,
+        difficulty,
+        data,
+        reactflow
     });
 
-    try{
-        const savedFlow = await flow.save();
-        res.json(savedFlow);
-    }
-    catch(err){
-        res.json({ message: err});
-    }
-    
-}*/
+    return node
+        .save()
+        .then((node) => res.status(201).json({ node }))
+        .catch((err) => res.status(500).json({ err }));
+};
+
+//EDGE FUNCTIONS
+const createEdge = (req: Request, res: Response) => {
+    const { type, title, data, reactflow} = req.body;
+
+    const node = new Edge({
+        type,
+        title,
+        data,
+        reactflow
+    });
+
+    return node
+        .save()
+        .then((node) => res.status(201).json({ node }))
+        .catch((err) => res.status(500).json({ err }));
+};
 
 export default 
 { 
     createFragment,
+    createNode,
+    createEdge,
 
     getFragmentById,
     getAllFragments,

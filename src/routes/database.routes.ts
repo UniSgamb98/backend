@@ -7,8 +7,12 @@ const router = express.Router();
 router.get("/fragments", DatabaseController.getAllFragments);
 router.get("/fragments/:fragmentId", DatabaseController.getFragmentById);
 
+
 //POST
-router.post("/create", DatabaseController.createFragment);
+router.post("/create/fragment", DatabaseController.createFragment);
+router.post("/create/node", DatabaseController.createNode);
+router.post("/create/edge", DatabaseController.createEdge);
+
 
 //PATCH
 router.patch("/edit/:fragmentId", DatabaseController.editFragment);
