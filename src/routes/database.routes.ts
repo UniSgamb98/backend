@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/fragments", DatabaseController.getAllFragments);
 router.get("/fragments/:fragmentId", DatabaseController.getFragmentById);
 router.get("/nodes", DatabaseController.getAllNodes);
-router.get("/nodes/:nodeId", DatabaseController.getFragmentById);
+router.get("/nodes/:nodeId", DatabaseController.getNodeById);
 router.get("/edges", DatabaseController.getAllEdges);
 router.get("/edges/:edgeId", DatabaseController.getEdgeById);
 
@@ -25,7 +25,7 @@ router.patch("/edges/edit/:edgeId", DatabaseController.editEdge);
 
 //DELETE
 router.delete("/fragments/delete/:fragmentId", DatabaseController.deleteFragment);
-router.delete("/nodes/delete/:fragmentId", DatabaseController.deleteNode);
+router.delete("/nodes/delete/:nodeId", DatabaseController.deleteNode);
 router.delete("/edges/delete/:edgeId", DatabaseController.deleteEdge);
 
 export = router;

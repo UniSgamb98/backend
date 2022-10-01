@@ -11,7 +11,7 @@ const createFragment = (req: Request, res: Response) => {
         title,
         description,
         nodes,
-        //edges
+        edges
     });
 
     return fragment
