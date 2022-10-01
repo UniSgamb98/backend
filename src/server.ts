@@ -2,34 +2,35 @@ import errorHandler from 'errorhandler';
 import mongoose from 'mongoose';
 import app from './app';
 import { config } from './configs/configs'
+import Logging from './utils/Logging';
 
 /**
  * Error Handler. Provides full stack
  */
 if (app.get("env") === "development") {
-    console.log("  Using errorhandler");
+    Logging.info("Using errorhandler");
     app.use(errorHandler());
 }
 
 mongoose.
     connect(config.mongo.url, { retryWrites: true, w: 'majority' })
     .then(() => {
-        console.log('connected to Database');
+        Logging.info('Connected to MongoDB');
     })
     .catch((err) => {
-        console.log(err);
+        Logging.error('Unable to connect:');
+        Logging.error(err);
     });
 
 /**
  * Start Express server.
  */
 const server = app.listen(app.get("port"), () => {
-    console.log(
-        "  App is running at http://localhost:%d in %s mode  🚀🚀",
-        app.get("port"),
-        app.get("env")
+    Logging.info(
+        `App is running at http://localhost:${app.get("port")} in ${app.get("env")} mode  🚀🚀`
     );
-    console.log("  Press CTRL-C to stop\n");
+    Logging.warn("Press CTRL-C to stop");
+    console.log("-------------------------------------------------");
 });
 
 export default server;
